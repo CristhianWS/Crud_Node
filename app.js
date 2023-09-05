@@ -22,6 +22,30 @@ app.get("/consulta", function(req, res){
     })
 })
 
+app.get("/editar/:id", function(req, res){
+  post.findAll({where: {'id': req.params.id}}).then(function(post){
+      res.render("editar", {post})
+  }).catch(function(erro){
+      console.log("Erro ao carregar dados do banco: " + erro)
+  })
+})
+
+app.post("/atualizar", function(req, res){
+    post.update({
+        nome: req.body.nome,
+        telefone: req.body.telefone,
+        origem: req.body.origem,
+        data_contato: req.body.data_contato,
+        observacao: req.body.observacao
+    },{
+        where: {
+            id: req.body.id
+        }
+    }).then(function(){
+        res.redirect("/consulta")
+    })
+})
+
 app.post("/cadastrar", function(req, res){
     post.create({
         nome: req.body.nome,
@@ -49,7 +73,17 @@ app.post('/delete', async (req, res) => {
     } catch (error) {
       res.send(`Ocorreu um erro ao excluir o nome  ${idToDelete}.`);
     }
-  });
+  })
+
+  app.post("/excluir", function(req, res){
+    post.destroy({where: {'id': req.params.id}}).then(function(){
+        res.render("/consulta")
+    }).catch(function(erro){
+        console.log("Erro ao excluir ou encontrar os dados do banco: " + erro)
+    })
+})
+
+  
   
 app.listen(8081, function(){
     console.log("Servidor rodando")
