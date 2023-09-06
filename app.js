@@ -46,6 +46,14 @@ app.post("/atualizar", function(req, res){
     })
 })
 
+app.get("/excluir/:id", function(req, res){
+    post.destroy({where: {'id': req.params.id}}).then(function(){
+        res.redirect("/consulta")
+    }).catch(function(erro){
+        console.log("Erro ao excluir ou encontrar os dados do banco: " + erro)
+    })
+})
+
 app.post("/cadastrar", function(req, res){
     post.create({
         nome: req.body.nome,
@@ -60,7 +68,7 @@ app.post("/cadastrar", function(req, res){
     })
 })
 
-app.post('/delete', async (req, res) => {
+/* app.post('/delete', async (req, res) => {
     const idToDelete = req.body.idToDelete;
   
     try {
@@ -73,17 +81,7 @@ app.post('/delete', async (req, res) => {
     } catch (error) {
       res.send(`Ocorreu um erro ao excluir o nome  ${idToDelete}.`);
     }
-  })
-
-  app.post("/excluir", function(req, res){
-    post.destroy({where: {'id': req.params.id}}).then(function(){
-        res.render("/consulta")
-    }).catch(function(erro){
-        console.log("Erro ao excluir ou encontrar os dados do banco: " + erro)
-    })
-})
-
-  
+  })  */
   
 app.listen(8081, function(){
     console.log("Servidor rodando")

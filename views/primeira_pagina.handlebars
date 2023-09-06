@@ -26,11 +26,12 @@
 							</div>
 							<div class="form-group">
 								<label for="exampleFormControlInput1">Telefone:</label>
-								<input type="text" class="form-control" required name="telefone" id="telefone" placeholder="(xx)xxxxx-xxxx">
+								<input type="text" class="form-control" name="telefone" id="telefone" pattern="[0-9]+" title="Apenas números são permitidos" required>
 							</div>
 							<div class="form-group">
 								<label for="exampleFormControlSelect1">Origem:</label>
 								<select class="form-control" required name="origem" id="origem">
+									<option></option>
 									<option>Celular</option>
 									<option>Fixo</option>
 									<option>Whatsapp</option>
